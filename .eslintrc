@@ -1,0 +1,14 @@
+{
+  "extends": ["react-app", "eslint:recommended", "plugin:import/errors", "plugin:import/warnings"],
+  "plugins": ["prettier"],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"]
+      }
+    }
+  },
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}
