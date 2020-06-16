@@ -1,7 +1,7 @@
 import React from 'react'
 
-const Input = ({ onChangeItem }) => {
-  return <input placeholder="Ingrese nuevo To Do" onKeyDown={onChangeItem} />
+const Input = ({ ...props }) => {
+  return <input {...props} />
 }
 
 export default Input

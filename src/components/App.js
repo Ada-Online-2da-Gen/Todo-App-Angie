@@ -13,7 +13,7 @@ const App = () => {
     setTodo(event.target.value)
     if (event.keyCode === 13 && event.target.value !== '') {
       setItems([...items, todo])
-      event.target.value = ''
+      setTodo('')
     }
   }
 
@@ -22,10 +22,18 @@ const App = () => {
     setTodo('')
   }
 
+  const handleChange = (event) => setTodo(event.target.value)
+
   return (
     <>
       <Container>
-        <Input onChangeItem={addItemList} />
+        <Input
+          type="text"
+          placeholder="Ingrese nuevo To Do"
+          value={todo}
+          onKeyDown={addItemList}
+          onChange={handleChange}
+        />
         <Button onClick={addItemListButton}>Agregar</Button>
         <List>
           {items.map((item, index) => (
