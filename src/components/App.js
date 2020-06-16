@@ -9,17 +9,18 @@ const App = () => {
   const [items, setItems] = useState([])
   const [todo, setTodo] = useState('')
 
-  const addItemList = (event) => {
-    setTodo(event.target.value)
+  const handleKeyDown = (event) => {
     if (event.keyCode === 13 && event.target.value !== '') {
       setItems([...items, todo])
-      setTodo('')
+      addTodo()
     }
   }
 
-  const addItemListButton = () => {
+  const addTodo = () => setTodo('')
+
+  const handleAddTodoButtonClick = () => {
     setItems([...items, todo])
-    setTodo('')
+    addTodo()
   }
 
   const handleChange = (event) => setTodo(event.target.value)
@@ -31,10 +32,10 @@ const App = () => {
           type="text"
           placeholder="Ingrese nuevo To Do"
           value={todo}
-          onKeyDown={addItemList}
+          onKeyDown={handleKeyDown}
           onChange={handleChange}
         />
-        <Button onClick={addItemListButton}>Agregar</Button>
+        <Button onClick={handleAddTodoButtonClick}>Agregar</Button>
         <List>
           {items.map((item, index) => (
             <ListItem key={index}>{item}</ListItem>
