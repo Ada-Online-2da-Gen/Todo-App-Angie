@@ -6,21 +6,21 @@ import List from 'components/List/List'
 import ListItem from 'components/ListItem/ListItem'
 
 const App = () => {
-  const [items, setItems] = useState([])
+  const [todos, setTodos] = useState([])
   const [todo, setTodo] = useState('')
 
   const handleKeyDown = (event) => {
     if (event.keyCode === 13 && event.target.value !== '') {
-      setItems([...items, todo])
       addTodo()
+      setTodo('')
     }
   }
 
-  const addTodo = () => setTodo('')
+  const addTodo = () => setTodos([...todos, todo])
 
   const handleAddTodoButtonClick = () => {
-    setItems([...items, todo])
     addTodo()
+    setTodo('')
   }
 
   const handleChange = (event) => setTodo(event.target.value)
@@ -37,8 +37,8 @@ const App = () => {
         />
         <Button onClick={handleAddTodoButtonClick}>Agregar</Button>
         <List>
-          {items.map((item, index) => (
-            <ListItem key={index}>{item}</ListItem>
+          {todos.map((todo, index) => (
+            <ListItem key={index}>{todo}</ListItem>
           ))}
         </List>
       </Container>
