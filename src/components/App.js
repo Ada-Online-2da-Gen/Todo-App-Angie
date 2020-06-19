@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
+
 import Button from 'components/Button/Button'
 import Container from 'components/Container/Container'
 import Input from 'components/Input/Input'
 import List from 'components/List/List'
-import ListItem from 'components/ListItem/ListItem'
+import Todo from 'components/Todo/Todo'
 
 const App = () => {
   const [todos, setTodos] = useState([])
@@ -19,11 +20,18 @@ const App = () => {
   const addTodo = () => setTodos([...todos, todo])
 
   const handleAddTodoButtonClick = () => {
-    addTodo()
-    setTodo('')
+    if (todo !== '') {
+      addTodo()
+      setTodo('')
+    }
   }
 
   const handleChange = (event) => setTodo(event.target.value)
+
+  const handleDeleteIconClick = (index) => {
+    const copyTodos = todos.filter((todo) => todos.indexOf(todo) !== index)
+    setTodos([...copyTodos])
+  }
 
   return (
     <>
@@ -38,7 +46,12 @@ const App = () => {
         <Button onClick={handleAddTodoButtonClick}>Agregar</Button>
         <List>
           {todos.map((todo, index) => (
-            <ListItem key={index}>{todo}</ListItem>
+            <Todo
+              key={index}
+              index={index}
+              todo={todo}
+              handleDeleteIconClick={handleDeleteIconClick}
+            ></Todo>
           ))}
         </List>
       </Container>
