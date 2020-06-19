@@ -1,22 +1,7 @@
-import React, { useState } from 'react'
-import { FaTrashAlt } from 'react-icons/fa'
+import React from 'react'
 
-const ListItem = ({ todo, index, handleDeleteIconClick }) => {
-  const [visible, setVisible] = useState(false)
-  const handleIconDelete = () => setVisible(!visible)
-  return (
-    <li
-      style={{ margin: '10px auto' }}
-      onMouseOver={handleIconDelete}
-      onMouseOut={handleIconDelete}
-      key={index}
-    >
-      {todo}
-      {visible && (
-        <FaTrashAlt style={{ paddingLeft: '10px' }} onClick={() => handleDeleteIconClick(index)} />
-      )}
-    </li>
-  )
+const ListItem = ({ children, ...props }) => {
+  return <li {...props}>{children}</li>
 }
 
 export default ListItem

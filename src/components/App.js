@@ -4,7 +4,7 @@ import Button from 'components/Button/Button'
 import Container from 'components/Container/Container'
 import Input from 'components/Input/Input'
 import List from 'components/List/List'
-import ListItem from 'components/ListItem/ListItem'
+import Todo from 'components/Todo/Todo'
 
 const App = () => {
   const [todos, setTodos] = useState([])
@@ -46,12 +46,12 @@ const App = () => {
         <Button onClick={handleAddTodoButtonClick}>Agregar</Button>
         <List>
           {todos.map((todo, index) => (
-            <ListItem
+            <Todo
               key={index}
               index={index}
               todo={todo}
               handleDeleteIconClick={handleDeleteIconClick}
-            ></ListItem>
+            ></Todo>
           ))}
         </List>
       </Container>
