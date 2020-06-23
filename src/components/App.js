@@ -9,6 +9,7 @@ import Todo from 'components/Todo/Todo'
 const App = () => {
   const [todos, setTodos] = useState([])
   const [todo, setTodo] = useState('')
+  const [statusCheckbox, setStatusCheckbox] = useState('pending')
 
   const handleKeyDown = (event) => {
     if (event.keyCode === 13 && event.target.value !== '') {
@@ -17,12 +18,16 @@ const App = () => {
     }
   }
 
-  const addTodo = () => setTodos([...todos, todo])
+  const addTodo = () => {
+    const value = { title: todo, status: 'pending' }
+    setTodos([...todos, value])
+  }
 
   const handleAddTodoButtonClick = () => {
     if (todo !== '') {
       addTodo()
       setTodo('')
+      console.log(todos)
     }
   }
 
@@ -31,6 +36,13 @@ const App = () => {
   const handleDeleteIconClick = (index) => {
     const copyTodos = todos.filter((todo) => todos.indexOf(todo) !== index)
     setTodos([...copyTodos])
+  }
+
+  const handleTodoStatusChange = ({ index }) => {
+    const newTodos = todos.map((todo) =>
+      todo.index === index ? (todo.value = statusCheckbox) : todo.value
+    )
+    setStatusCheckbox(newTodos)
   }
 
   return (
@@ -49,8 +61,10 @@ const App = () => {
             <Todo
               key={index}
               index={index}
-              todo={todo}
+              todo={todo.title}
               handleDeleteIconClick={handleDeleteIconClick}
+              status={todo.status}
+              onStatusChange={handleTodoStatusChange}
             ></Todo>
           ))}
         </List>

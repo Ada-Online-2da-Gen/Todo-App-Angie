@@ -1,7 +1,7 @@
 import React from 'react'
 
-const Checkbox = ({ handleCheckboxClick }) => {
-  return <input type="checkbox" onClick={handleCheckboxClick}></input>
+const Checkbox = ({ onCheck, ...props }) => {
+  return <input type="checkbox" onChange={onCheck} {...props}></input>
 }
 
 export default Checkbox
