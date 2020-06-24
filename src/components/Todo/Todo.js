@@ -4,27 +4,24 @@ import Checkbox from 'components/Checkbox/Checkbox'
 import { FaTrashAlt } from 'react-icons/fa'
 import style from './todo.module.scss'
 
-const Todo = ({ todo, index, handleDeleteIconClick, onStatusChange, status }) => {
+const Todo = ({ index, title, status, onDelete, onStatusChange }) => {
   const [visible, setVisible] = useState(false)
-  const handleIconDelete = () => setVisible(!visible)
+  const handleHover = () => setVisible(!visible)
 
   const handleCheckboxClick = () => onStatusChange(index)
+
+  const handleDeleteIconClick = () => onDelete(index)
 
   return (
     <ListItem
       className={`${style.listItem} ${style[status]}`}
-      onMouseEnter={handleIconDelete}
-      onMouseLeave={handleIconDelete}
+      onMouseEnter={handleHover}
+      onMouseLeave={handleHover}
       key={index}
     >
-      <Checkbox
-        // checked={(status = 'completed' ? true : false)}
-        onChange={handleCheckboxClick}
-      ></Checkbox>
-      {todo}
-      {visible && (
-        <FaTrashAlt style={{ paddingLeft: '10px' }} onClick={() => handleDeleteIconClick(index)} />
-      )}
+      <Checkbox checked={status === 'completed'} onChange={handleCheckboxClick}></Checkbox>
+      {title}
+      {visible && <FaTrashAlt className={style.iconDelete} onClick={handleDeleteIconClick} />}
     </ListItem>
   )
 }

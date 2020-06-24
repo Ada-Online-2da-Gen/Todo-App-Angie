@@ -9,7 +9,6 @@ import Todo from 'components/Todo/Todo'
 const App = () => {
   const [todos, setTodos] = useState([])
   const [todo, setTodo] = useState('')
-  const [statusCheckbox, setStatusCheckbox] = useState('pending')
 
   const handleKeyDown = (event) => {
     if (event.keyCode === 13 && event.target.value !== '') {
@@ -19,15 +18,14 @@ const App = () => {
   }
 
   const addTodo = () => {
-    const value = { title: todo, status: 'pending' }
-    setTodos([...todos, value])
+    const newTodo = { title: todo, status: 'pending' }
+    setTodos([...todos, newTodo])
   }
 
   const handleAddTodoButtonClick = () => {
     if (todo !== '') {
       addTodo()
       setTodo('')
-      console.log(todos)
     }
   }
 
@@ -38,11 +36,12 @@ const App = () => {
     setTodos([...copyTodos])
   }
 
-  const handleTodoStatusChange = ({ index }) => {
-    const newTodos = todos.map((todo) =>
-      todo.index === index ? (todo.value = statusCheckbox) : todo.value
-    )
-    setStatusCheckbox(newTodos)
+  const handleTodoStatusChange = (index) => {
+    const newTodo = todos.find((todo) => todos.indexOf(todo) === index)
+    const newStatus = newTodo.status === 'pending' ? 'completed' : 'pending'
+    const updateNewTodo = { ...newTodo, status: newStatus }
+    const newTodos = todos.map((todo) => (todos.indexOf(todo) === index ? updateNewTodo : todo))
+    setTodos([...newTodos])
   }
 
   return (
@@ -61,8 +60,8 @@ const App = () => {
             <Todo
               key={index}
               index={index}
-              todo={todo.title}
-              handleDeleteIconClick={handleDeleteIconClick}
+              title={todo.title}
+              onDelete={handleDeleteIconClick}
               status={todo.status}
               onStatusChange={handleTodoStatusChange}
             ></Todo>
