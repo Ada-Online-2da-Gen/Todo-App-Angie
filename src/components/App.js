@@ -31,7 +31,7 @@ const App = () => {
 
   const handleChange = (event) => setTodo(event.target.value)
 
-  const handleDeleteIconClick = (index) => {
+  const handleTodoDelete = (index) => {
     const copyTodos = todos.filter((todo) => todos.indexOf(todo) !== index)
     setTodos([...copyTodos])
   }
@@ -61,7 +61,7 @@ const App = () => {
               key={index}
               index={index}
               title={todo.title}
-              onDelete={handleDeleteIconClick}
+              onDelete={handleTodoDelete}
               status={todo.status}
               onStatusChange={handleTodoStatusChange}
             ></Todo>
