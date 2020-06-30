@@ -1,3 +1,12 @@
 .listItem {
   margin: 10px auto;
+  list-style: none;
+}
+.completed {
+  color: gray;
+  text-decoration: line-through;
+}
+
+.iconDelete {
+  padding-left: 10px;
 }

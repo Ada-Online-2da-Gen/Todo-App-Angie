@@ -17,7 +17,10 @@ const App = () => {
     }
   }
 
-  const addTodo = () => setTodos([...todos, todo])
+  const addTodo = () => {
+    const newTodo = { title: todo, status: 'pending' }
+    setTodos([...todos, newTodo])
+  }
 
   const handleAddTodoButtonClick = () => {
     if (todo !== '') {
@@ -28,9 +31,17 @@ const App = () => {
 
   const handleChange = (event) => setTodo(event.target.value)
 
-  const handleDeleteIconClick = (index) => {
+  const handleTodoDelete = (index) => {
     const copyTodos = todos.filter((todo) => todos.indexOf(todo) !== index)
     setTodos([...copyTodos])
+  }
+
+  const handleTodoStatusChange = (index) => {
+    const newTodo = todos.find((todo) => todos.indexOf(todo) === index)
+    const newStatus = newTodo.status === 'pending' ? 'completed' : 'pending'
+    const updateNewTodo = { ...newTodo, status: newStatus }
+    const newTodos = todos.map((todo) => (todos.indexOf(todo) === index ? updateNewTodo : todo))
+    setTodos([...newTodos])
   }
 
   return (
@@ -49,8 +60,10 @@ const App = () => {
             <Todo
               key={index}
               index={index}
-              todo={todo}
-              handleDeleteIconClick={handleDeleteIconClick}
+              title={todo.title}
+              onDelete={handleTodoDelete}
+              status={todo.status}
+              onStatusChange={handleTodoStatusChange}
             ></Todo>
           ))}
         </List>
