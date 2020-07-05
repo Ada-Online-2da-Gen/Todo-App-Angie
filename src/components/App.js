@@ -2,7 +2,7 @@ import React from 'react'
 
 import Container from 'components/Container/Container'
 import TodoList from 'components/TodoList/TodoList'
-import ContainerAddTodo from 'components/ContainerAddTodo/ContainerAddTodo'
+import AddTodoPanel from 'components/AddTodoPanel/AddTodoPanel'
 import Filters from 'components/Filters/Filters'
 import { TodoProvider } from 'contexts/TodoContext'
 
@@ -11,7 +11,7 @@ const App = () => {
     <>
       <TodoProvider>
         <Container>
-          <ContainerAddTodo />
+          <AddTodoPanel />
           <Filters />
           <TodoList />
         </Container>

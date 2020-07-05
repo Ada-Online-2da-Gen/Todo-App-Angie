@@ -5,35 +5,19 @@ const TodoContext = createContext()
 const TodoProvider = ({ children }) => {
   const [todos, setTodos] = useState([])
   const [todo, setTodo] = useState('')
-  const [statusTodo, setStatusTodo] = useState('all')
-
-  const addTodoKeyDown = (event) => {
-    if (event.keyCode === 13 && event.target.value !== '') {
-      addTodo()
-      setTodo('')
-    }
-  }
+  const [todoStatusFilter, setTodoStatusFilter] = useState('all')
 
   const addTodo = () => {
     const newTodo = { title: todo, status: 'pending' }
     setTodos([...todos, newTodo])
   }
 
-  const addTodoButtonClick = () => {
-    if (todo !== '') {
-      addTodo()
-      setTodo('')
-    }
-  }
-
-  const setTodoChange = (event) => setTodo(event.target.value)
-
-  const deleteIconClick = (index) => {
+  const deleteTodo = (index) => {
     const copyTodos = todos.filter((todo) => todos.indexOf(todo) !== index)
     setTodos([...copyTodos])
   }
 
-  const todoStatusChange = (index) => {
+  const changeTodoStatus = (index) => {
     const newTodo = todos.find((todo) => todos.indexOf(todo) === index)
     const newStatus = newTodo.status === 'pending' ? 'completed' : 'pending'
     const updateNewTodo = { ...newTodo, status: newStatus }
@@ -41,20 +25,23 @@ const TodoProvider = ({ children }) => {
     setTodos([...newTodos])
   }
 
+  const filterStatusTodo = (todo) => {
+    return todoStatusFilter === 'all' ? true : todo.status === todoStatusFilter
+  }
+
   return (
     <TodoContext.Provider
       value={{
+        addTodo,
         todo,
         todos,
         setTodo,
         setTodos,
-        todoStatusChange,
-        deleteIconClick,
-        addTodoButtonClick,
-        addTodoKeyDown,
-        setTodoChange,
-        setStatusTodo,
-        statusTodo
+        changeTodoStatus,
+        deleteTodo,
+        setTodoStatusFilter,
+        todoStatusFilter,
+        filterStatusTodo
       }}
     >
       {children}
